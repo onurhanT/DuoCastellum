@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d8b74a59f40f442b3f1323a676b7bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectSpawner: {fileID: 531731478}
+  objectSpawner: {fileID: 1250142916}
   playerPanel: {fileID: 839702098}
 --- !u!1 &170076733
 GameObject:
@@ -1182,7 +1182,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9e4b088ba1225164591f35c56783390c, type: 2}
+  - {fileID: 2100000, guid: ce7273475281a624ba07bb2badd70a5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 424334973}
   manaBar: {fileID: 741641282}
-  manaTime: 2
+  manaTime: 1
   manaAmount: 1
 --- !u!1 &892937585
 GameObject:
@@ -1816,6 +1816,7 @@ GameObject:
   - component: {fileID: 1250142919}
   - component: {fileID: 1250142918}
   - component: {fileID: 1250142917}
+  - component: {fileID: 1250142921}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1890,6 +1891,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250142921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250142916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c13a96bc0c8b0439ea4b7623c8eb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1354001858
 GameObject:
   m_ObjectHideFlags: 0
