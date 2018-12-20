@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class KnightBehaviour : StateMachineBehaviour
+public class MinionBehaviour : StateMachineBehaviour
 {
     private EnemyController controller;
     private Animator player;
@@ -21,21 +21,21 @@ public class KnightBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
      
-        if (controller.stayAtIdle())
+        if (controller.StayAtIdle())
         {
             player.SetBool("is_dead", true);
             player.SetBool("run_con", true);
             player.SetBool("on_exit", true);
             player.SetBool("attack_con", true);
         }
-        if (!controller.stayAtIdle())
+        if (!controller.StayAtIdle())
         {
             player.SetTrigger("run");
             player.SetBool("startIdle", false);
             player.SetBool("run_con", false);
             player.SetBool("run_con2", false);
         }
-        if (!controller.isEnemyDied())
+        if (!controller.IsEnemyDied())
         {
             player.SetBool("is_enemy_die", true);
             player.SetBool("is_dead", true);
@@ -46,17 +46,17 @@ public class KnightBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        controller.setTarget();
+        controller.SetTarget();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!controller.isAtDeathState())
+        if (!controller.IsAtDeathState())
         {
             player.SetBool("is_dead", true);
             player.ApplyBuiltinRootMotion();
-            if (controller.canAttack())
+            if (controller.CanAttack())
             {
                 //animator.applyRootMotion = false;
                 player.SetBool("on_exit", false);
@@ -70,10 +70,10 @@ public class KnightBehaviour : StateMachineBehaviour
                 {
                     if (Time.frameCount % 15 == 0)
                     {
-                        controller.attack();
+                        controller.Attack();
                     }
                 }
-                if (controller.isEnemyDied())
+                if (controller.IsEnemyDied())
                 {
                     player.SetBool("is_dead", true);
                     player.SetBool("attack_con", true);

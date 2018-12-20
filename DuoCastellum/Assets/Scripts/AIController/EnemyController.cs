@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject target;
-    UnityEngine.AI.NavMeshAgent agent;
-    Animator anim;
+    public UnityEngine.AI.NavMeshAgent agent;
+    public Animator anim;
     public RuntimeAnimatorController death;
     public float lookRadius = 132;
+    public int maxHealth;
+    public int maxArmour;
     public int health;
     public int damage;
+    public int armour;
     public EnemyController target_script;
     bool idle_con;
     bool can_attack;
@@ -18,20 +21,16 @@ public class EnemyController : MonoBehaviour
     bool is_dead;
 
     // StateMachineBehaviour behaviour;
-
     // Use this for initialization
     void Start()
     {
         //behaviour = anim.GetBehaviour<KnightBehaviour>();
-        setTarget();
-        
+        SetTarget();  
         target_script = target.GetComponent<EnemyController>();
         is_dead = false;
         idle_con = false;
         can_attack = false;
         is_enemy_died = false;
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,7 +39,7 @@ public class EnemyController : MonoBehaviour
         if(health > 0)
         {
             is_dead = false;
-            setTarget();
+            SetTarget();
             if (target == null)
             {
                 idle_con = true; // stay at idle if there is no enemy
@@ -67,7 +66,7 @@ public class EnemyController : MonoBehaviour
                         if (target_script.health <= 0)
                         {
                             is_enemy_died = true;
-                            setTarget();
+                            SetTarget();
                         }
                     }
                     else if (distance > agent.stoppingDistance)
@@ -101,7 +100,7 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
-    public void setTarget()
+    public void SetTarget()
     {
         if (this.gameObject.tag.Equals("player1"))
         {
@@ -114,31 +113,39 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    public bool canAttack()
+    public bool CanAttack()
     {
         return can_attack;
     }
-    public bool isEnemyDied()
+    public bool IsEnemyDied()
     {
         return is_enemy_died;
     }
 
-    public void attack()
+    public void Attack()
     {
-        target_script.takeDamage(damage);
+        target_script.TakeDamage(damage);
         Debug.Log("attacked");
     }
 
-    public void takeDamage(int damageTaken)
+    public void TakeDamage(int damageTaken)
     {
-        health = health - damageTaken;
+        if(this.armour >= damageTaken)
+        {
+            this.armour -= damageTaken;
+        } else
+        {
+            this.armour = 0;
+            damageTaken -= armour;
+            this.health -= damageTaken;
+        }
     }
 
-    public bool stayAtIdle()
+    public bool StayAtIdle()
     {
         return idle_con;
     }
-    public bool isAtDeathState()
+    public bool IsAtDeathState()
     {
         return is_dead;
     }
