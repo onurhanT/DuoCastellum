@@ -2342,7 +2342,7 @@ Animator:
   m_GameObject: {fileID: 1308212610563136}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
-  m_Controller: {fileID: 9100000, guid: ff5e63b3c4351b2419c6d6c10912d10c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 40f30613e0dd6eb488308e16ae4b5550, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2363,8 +2363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  agent: {fileID: 195822261601959644}
-  anim: {fileID: 95012250628081594}
   death: {fileID: 9100000, guid: 40f30613e0dd6eb488308e16ae4b5550, type: 2}
   lookRadius: 132
   maxHealth: 0

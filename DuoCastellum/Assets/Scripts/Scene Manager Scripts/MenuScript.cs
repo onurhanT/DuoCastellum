@@ -18,4 +18,19 @@ public class MenuScript : MonoBehaviour {
     public void OnPlay() {
         SceneManager.LoadScene("GameScene");
     }
+
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 }

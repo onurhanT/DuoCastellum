@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject target;
-    public UnityEngine.AI.NavMeshAgent agent;
-    public Animator anim;
+     UnityEngine.AI.NavMeshAgent agent;
+     Animator anim;
     public RuntimeAnimatorController death;
     public float lookRadius = 132;
     public int maxHealth;
@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
         //behaviour = anim.GetBehaviour<KnightBehaviour>();
         SetTarget();  
         target_script = target.GetComponent<EnemyController>();
+        agent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        anim = gameObject.GetComponent<Animator>();
         is_dead = false;
         idle_con = false;
         can_attack = false;
