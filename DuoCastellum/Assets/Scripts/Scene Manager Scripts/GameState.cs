@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameState : State {
 
-    public GameState(Controller controller) : base(controller)
+    public GameState(Controller controller) 
     {
 
     }
@@ -16,19 +16,8 @@ public class GameState : State {
         SceneManager.LoadScene("MenuScene");
     }
 
-    public override void OnClick()
+    private void Start()
     {
-        string button_name = EventSystem.current.currentSelectedGameObject.name;
-        //No Functionality
-    }
-
-    public override void OnPlay()
-    {
-        //No Functionality
-    }
-
-    public override void OnNext()
-    {
-        //No Functionality
+        this.controller = GameObject.Find("Controller").GetComponent<Controller>();
     }
 }
