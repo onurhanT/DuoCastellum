@@ -20,7 +20,8 @@ public class MinionBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-     
+
+        
         if (controller.StayAtIdle())
         {
             player.SetBool("is_dead", true);
@@ -38,9 +39,20 @@ public class MinionBehaviour : StateMachineBehaviour
         if (!controller.IsEnemyDied())
         {
             player.SetBool("is_enemy_die", true);
-            player.SetBool("is_dead", true);
 
         }
+
+        if (controller.IsEnemyDied())
+        {
+            if (stateInfo.IsName("Run"))
+            {
+                controller.SetTarget();
+            }
+            
+        }
+        
+
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -52,6 +64,7 @@ public class MinionBehaviour : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         if (!controller.IsAtDeathState())
         {
             player.SetBool("is_dead", true);
@@ -80,6 +93,7 @@ public class MinionBehaviour : StateMachineBehaviour
                     player.SetBool("is_enemy_die", false);
                     player.SetBool("on_exit", true);
                     player.SetBool("can_exit", false);
+                    
                 }
             }
         }

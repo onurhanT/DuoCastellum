@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CreditsState : State {
 
-    private Button back;
+    
     public CreditsState(Controller controller) 
     {
         

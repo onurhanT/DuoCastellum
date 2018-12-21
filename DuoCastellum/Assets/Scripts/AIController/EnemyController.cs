@@ -23,8 +23,8 @@ public class EnemyController : MonoBehaviour, IController
     void Start()
     {
         //behaviour = anim.GetBehaviour<KnightBehaviour>();
-        FillData(gameObject.GetComponent<MinionData>());
         SetTarget();
+        FillData(gameObject.GetComponent<MinionData>());  
         agent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
         is_dead = false;
@@ -43,7 +43,8 @@ public class EnemyController : MonoBehaviour, IController
     // Update is called once per frame
     void Update()
     {
-        if(health > 0)
+        
+        if (health > 0)
         {
             is_dead = false;
             SetTarget();
@@ -56,6 +57,8 @@ public class EnemyController : MonoBehaviour, IController
             }
             else
             {
+                anim.applyRootMotion = true;
+                
                 is_enemy_died = false;
                 idle_con = false;
                 if (target.GetComponent<EnemyController>())
@@ -70,7 +73,8 @@ public class EnemyController : MonoBehaviour, IController
                 float distance = Vector3.Distance(target.transform.position, transform.position);
                 if (distance <= lookRadius)
                 {
-                    agent.SetDestination(target.transform.position);
+                    agent.destination = target.transform.position;
+                    //agent.SetDestination(target.transform.position);
                     if (distance <= agent.stoppingDistance)
                     {
 
@@ -80,6 +84,7 @@ public class EnemyController : MonoBehaviour, IController
                         if (target_script.GetHealth() <= 0)
                         {
                             is_enemy_died = true;
+                            idle_con = true;
                             SetTarget();
                         }
                     }
@@ -87,6 +92,7 @@ public class EnemyController : MonoBehaviour, IController
                     {
                         can_attack = false;
                         FaceTarget();
+                        if(target == null) { idle_con = true; }
                     }
 
                 }
@@ -117,16 +123,19 @@ public class EnemyController : MonoBehaviour, IController
     public void SetTarget()
     {
         if (this.gameObject.tag.Equals("player1"))
-        {
-            target = GameObject.FindWithTag("player2");
+        {    
+                target = GameObject.FindWithTag("player2");
+  
         }
         else if (this.gameObject.tag.Equals("player2"))
         {
-            target = GameObject.FindWithTag("player1");
+
+                target = GameObject.FindWithTag("player1");
+  
         }
         
     }
-
+    
     public bool CanAttack()
     {
         return can_attack;

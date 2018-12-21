@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameState : State {
+    private GameObject gameManager;
 
     public GameState(Controller controller) 
     {
@@ -12,12 +13,23 @@ public class GameState : State {
     }
     override public void OnBack()
     {
-        controller.changeState(new OptionsState(controller));
         SceneManager.LoadScene("MenuScene");
+        controller.changeState(gameObject.GetComponent<MenuState>());
+    }
+    override public void OnMute()
+    {
+        GameObject.Find("GameManager").GetComponent<AudioSource>().volume = 0.0f;
     }
 
-    private void Start()
+    private void Update()
     {
-        this.controller = GameObject.Find("Controller").GetComponent<Controller>();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnBack();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            OnMute();
+        }
     }
 }
