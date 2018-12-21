@@ -68,7 +68,7 @@ public class MinionBehaviour : StateMachineBehaviour
                 player.SetTrigger("attack");
                 if (stateInfo.IsName("wait_for_attack"))
                 {
-                    if (Time.frameCount % 15 == 0)
+                    if (Time.frameCount % 30 == 0)
                     {
                         controller.Attack();
                     }

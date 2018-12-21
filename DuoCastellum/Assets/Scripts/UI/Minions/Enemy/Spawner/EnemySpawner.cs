@@ -20,7 +20,6 @@ public class EnemySpawner : MonoBehaviour{
         foreach(EnemyMinion minion in enemyWave)
         {
             InstantiateEnemy(minion);
-            Debug.Log("spawning");
         }
         if (stopSpawning)
         {
@@ -30,7 +29,7 @@ public class EnemySpawner : MonoBehaviour{
 
     private void InstantiateEnemy(EnemyMinion minion)
     {
-        GameObject enemyMinion = Resources.Load(minion.GetName()) as GameObject;
+        GameObject enemyMinion = Resources.Load("Characters/Enemy/" + minion.GetName()) as GameObject;
         if (enemyMinion != null)
         {
             if (enemyMinion.GetComponent("MinionData") != null)
@@ -42,8 +41,8 @@ public class EnemySpawner : MonoBehaviour{
                 enemyMinion.AddComponent<MinionData>();
                 enemyMinion.GetComponent<MinionData>().Clone(minion);
             }
+            enemyMinion.tag = "player2";
             Instantiate(enemyMinion, this.transform.position, this.transform.rotation);
-            Debug.Log("spawned");
         }
         else
         {

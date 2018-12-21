@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IController
 {
     public GameObject target;
-     UnityEngine.AI.NavMeshAgent agent;
-     Animator anim;
+    UnityEngine.AI.NavMeshAgent agent;
+    Animator anim;
     public RuntimeAnimatorController death;
     public float lookRadius = 132;
-    public int maxHealth;
-    public int maxArmour;
     public int health;
     public int damage;
     public int armour;
-    public EnemyController target_script;
+    public IController target_script;
     bool idle_con;
     bool can_attack;
     bool is_enemy_died;
@@ -25,16 +23,23 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         //behaviour = anim.GetBehaviour<KnightBehaviour>();
-        SetTarget();  
-        target_script = target.GetComponent<EnemyController>();
+        FillData(gameObject.GetComponent<MinionData>());
+        SetTarget();
         agent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
         is_dead = false;
         idle_con = false;
         can_attack = false;
         is_enemy_died = false;
+
     }
 
+    private void FillData(MinionData minionData)
+    {
+        this.health = minionData.health;
+        this.damage = minionData.damage;
+        this.armour = minionData.armour;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -53,11 +58,18 @@ public class EnemyController : MonoBehaviour
             {
                 is_enemy_died = false;
                 idle_con = false;
-                target_script = target.GetComponent<EnemyController>();
+                if (target.GetComponent<EnemyController>())
+                {
+                    target_script = target.GetComponent<EnemyController>();
+                }
+                else
+                {
+                    target_script = target.GetComponent<BaseController>();
+                }
+                
                 float distance = Vector3.Distance(target.transform.position, transform.position);
                 if (distance <= lookRadius)
                 {
-
                     agent.SetDestination(target.transform.position);
                     if (distance <= agent.stoppingDistance)
                     {
@@ -65,7 +77,7 @@ public class EnemyController : MonoBehaviour
                         anim.applyRootMotion = false;
                         can_attack = true;
                         FaceTarget();
-                        if (target_script.health <= 0)
+                        if (target_script.GetHealth() <= 0)
                         {
                             is_enemy_died = true;
                             SetTarget();
@@ -130,19 +142,6 @@ public class EnemyController : MonoBehaviour
         Debug.Log("attacked");
     }
 
-    public void TakeDamage(int damageTaken)
-    {
-        if(this.armour >= damageTaken)
-        {
-            this.armour -= damageTaken;
-        } else
-        {
-            this.armour = 0;
-            damageTaken -= armour;
-            this.health -= damageTaken;
-        }
-    }
-
     public bool StayAtIdle()
     {
         return idle_con;
@@ -152,4 +151,21 @@ public class EnemyController : MonoBehaviour
         return is_dead;
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (this.armour >= damage)
+        {
+            this.armour -= damage;
+        }
+        else
+        {
+            this.armour = 0;
+            damage -= armour;
+            this.health -= damage;
+        }
+    }
+    public int GetHealth()
+    {
+        return this.health;
+    }
 }

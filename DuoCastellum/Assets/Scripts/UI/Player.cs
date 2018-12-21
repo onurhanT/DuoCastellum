@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour {
-    public static float maxHealth = 30;
-    public static float maxMana = 10;
+public class Player : MonoBehaviour, IPlayer {
+    public float maxHealth = 30;
+    public float maxMana = 10;
     public Slider healthBar;
     public Slider manaBar;
     public float manaTime;
@@ -67,4 +67,5 @@ public class Player : MonoBehaviour {
     public float CalculateHealth() { return health / maxHealth; }
     public float CalculateMana() { return mana / maxMana; }
     public bool CanDrawCard(int mana) { return this.mana >= mana; }
+    public float GetHealth() { return this.health; }
 }

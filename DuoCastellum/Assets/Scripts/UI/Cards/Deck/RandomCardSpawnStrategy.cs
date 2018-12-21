@@ -11,7 +11,7 @@ public class RandomCardSpawnStrategy : ICardSpawnStrategy {
         {
             return cardFactory.MakeCard("Warrior");
         }
-        else if (randNum >= 6 && randNum < 10)
+        else if (randNum >= 6 && randNum < 9)
         {
             return cardFactory.MakeCard("Puppet");
         }
