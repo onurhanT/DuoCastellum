@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BaseController : MonoBehaviour, IController
 {
     private int maxHealth;
     private int health;
     public GameObject player;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +24,12 @@ public class BaseController : MonoBehaviour, IController
             if (CompareTag("player1"))
             {
                 //YOU LOSE
+                SceneManager.LoadScene("LoseScene");
             }
             else
             {
                 //YOU WIN
+                SceneManager.LoadScene("WinScene");
             }
         }
         else
