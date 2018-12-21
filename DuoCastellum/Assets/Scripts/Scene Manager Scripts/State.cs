@@ -6,13 +6,14 @@ public abstract class State : MonoBehaviour
 {
     public Controller controller;
 
-    public State(Controller controller)
+    public State()
     {
-        this.controller = controller;
+        
     }
     public virtual void OnPlay() { }
     public virtual void OnBack() { }
     public virtual void OnNext() { }
-    public virtual void OnClick() { }
+    public virtual void OnOptions() { }
+    public virtual void OnCredits() { }
 
 }
