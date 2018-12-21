@@ -25,8 +25,8 @@ public class MenuState : State {
 
     override public void OnOptions()
     {
-        SceneManager.LoadScene("Options");
-        controller.changeState(gameObject.GetComponent<OptionsState>());
+        SceneManager.LoadScene("Instructions");
+        controller.changeState(gameObject.GetComponent<InstructionsState>());
 
     }
 
@@ -41,7 +41,7 @@ public class MenuState : State {
     private void OnEnable()
     {
 
-        GameObject.Find("Options").GetComponent<Button>().onClick.AddListener(OnOptions);
+        GameObject.Find("Instructions").GetComponent<Button>().onClick.AddListener(OnOptions);
         GameObject.Find("Credits").GetComponent<Button>().onClick.AddListener(OnCredits);
         GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(OnPlay);
 

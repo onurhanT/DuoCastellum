@@ -15,5 +15,6 @@ public abstract class State : MonoBehaviour
     public virtual void OnNext() { }
     public virtual void OnOptions() { }
     public virtual void OnCredits() { }
+    public virtual void OnMute() { }
 
 }
